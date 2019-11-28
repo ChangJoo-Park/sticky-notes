@@ -1,40 +1,20 @@
 <template>
   <div class="grid-sections p-2">
-    <div class="item">
-      <div class="item-content">
-      <!-- Safe zone, enter your custom markup -->
-      This sscan be anything.
-      <!-- Safe zone ends -->
+    <template v-for="section in sections">
+      <div class="item"  :key="section.id">
+        <div class="item-content hover:border-black">
+        <!-- Safe zone, enter your custom markup -->
+          <div class="drag cursor-pointer">DRAG</div>
+          <div class="text-2xl cursor-pointer border-b">
+            <input type="text" v-model="section.name">
+          </div>
+          <div>
+            <!-- ITEMS -->
+          </div>
+        <!-- Safe zone ends -->
+        </div>
       </div>
-    </div>
-
-    <div class="item">
-      <div class="item-content">
-      <!-- Safe zone, enter your custom markup -->
-      <div class="my-custom-content">
-        Yippdee!
-      </div>
-      <!-- Safe zone ends -->
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-content">
-      <!-- Safe zone, enter your custom markup -->
-      <div class="my-custom-content">
-        Yippee!
-      </div>
-      <!-- Safe zone ends -->
-      </div>
-    </div>
-    <div class="item">
-      <div class="item-content">
-      <!-- Safe zone, enter your custom markup -->
-      <div class="my-custom-content">
-        Yippee!
-      </div>
-      <!-- Safe zone ends -->
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -42,6 +22,32 @@
 import Muuri from 'muuri'
 
 export default {
+  data () {
+    return {
+      sections: [
+        {
+          _id: '1234',
+          name: 'HELLO WORLD',
+          note: []
+        },
+        {
+          _id: '456',
+          name: 'New Section',
+          note: []
+        },
+        {
+          _id: '789',
+          name: 'HHHHH',
+          note: []
+        },
+        {
+          _id: '987',
+          name: '안녕하세요',
+          note: []
+        }
+      ]
+    }
+  },
   mounted () {
     var grid = new Muuri('.grid-sections', {
       // Item elements
@@ -87,7 +93,7 @@ export default {
       dragStartPredicate: {
         distance: 0,
         delay: 0,
-        handle: false
+        handle: '.drag'
       },
       dragAxis: 'y',
       dragSort: true,
@@ -143,8 +149,6 @@ export default {
     height: 300px;
     margin-bottom: 1rem;
     z-index: 1;
-    background: #000;
-    color: #fff;
   }
   .item.muuri-item-dragging {
     z-index: 3;
