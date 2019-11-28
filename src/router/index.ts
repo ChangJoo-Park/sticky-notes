@@ -24,6 +24,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "grid" */ '../views/Grid.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import(/* webpackChunkName: "signup" */ '../views/SignUp.vue')
+  },
+  {
     path: '/app',
     component: () => import(/* webpackChunkName: "app-root" */ '../views/App.vue'),
     children: [

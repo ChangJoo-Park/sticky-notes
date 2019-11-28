@@ -39,6 +39,7 @@
     "lint-staged": "^9.4.3",
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
+    "tailwindcss": "^1.1.4",
     "typescript": "~3.5.3",
     "vue-template-compiler": "^2.6.10"
   },
