@@ -23,6 +23,22 @@ const routes = [
     name: 'grid',
     component: () => import(/* webpackChunkName: "grid" */ '../views/Grid.vue')
   },
+  {
+    path: '/app',
+    component: () => import(/* webpackChunkName: "app-root" */ '../views/App.vue'),
+    children: [
+      {
+        path: "",
+        name: 'app-favorite',
+        component: () => import(/* webpackChunkName: "app-favorites" */ '../views/app/Favorite.vue'),
+      },
+      {
+        path: ":id",
+        name: 'app-board',
+        component: () => import(/* webpackChunkName: "app-board" */ '../views/app/Board.vue'),
+      }
+    ]
+  },
   { 
     path:'*', 
     component: () => import(/* webpackChunkName: "not-found" */ '../views/NotFound.vue')
