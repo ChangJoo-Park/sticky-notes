@@ -1,6 +1,5 @@
 <template>
   <div class="grid">
-
     <div class="item">
       <div class="item-content">
       <!-- Safe zone, enter your custom markup -->
@@ -36,7 +35,6 @@
       <!-- Safe zone ends -->
       </div>
     </div>
-
   </div>
 </template>
 
@@ -103,7 +101,7 @@ export default {
         // action: actionMove
       },
       dragReleaseDuration: 300,
-      dragReleaseEasing: 'ease',
+      dragReleaseEasing: 'ease-in-out',
       dragCssProps: {
         touchAction: 'none',
         userSelect: 'none',
@@ -113,7 +111,7 @@ export default {
         contentZooming: 'none'
       },
       dragPlaceholder: {
-        enabled: false,
+        enabled: true,
         duration: 300,
         easing: 'ease',
         createElement: null,
