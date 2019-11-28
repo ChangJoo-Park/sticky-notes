@@ -1,16 +1,11 @@
 <template>
-  <div class="grid-sections p-2">
-    <template v-for="section in sections">
-      <div class="item"  :key="section.id">
-        <div class="item-content hover:border-black">
+  <div class="items p-2" :class="`items-${sectionId}`">
+    <template v-for="item in items">
+      <div class="item border"  :key="item.id">
+        <div class="item-content">
         <!-- Safe zone, enter your custom markup -->
-          <div class="drag cursor-pointer">DRAG</div>
-          <div class="text-2xl cursor-pointer border-b">
-            <input type="text" v-model="section.name">
-          </div>
-          <div>
-            <!-- ITEMS -->
-            <inner-section :section-id="section.id" />
+          <div class="cursor-pointer ">
+            {{item.name}} - {{ sectionId }}
           </div>
         <!-- Safe zone ends -->
         </div>
@@ -22,40 +17,28 @@
 <script>
 import Muuri from 'muuri'
 
-import InnerSection from '@/components/app/InnerSection'
-
 export default {
-  components: {
-    InnerSection
+  props: {
+    sectionId: {
+      type: String
+    }
   },
   data () {
     return {
-      sections: [
+      items: [
         {
-          id: '1234',
-          name: 'HELLO WORLD',
-          note: []
+          id: 111,
+          name: "HELLO2222 WORLD"
         },
         {
-          id: '456',
-          name: 'New Section',
-          note: []
-        },
-        {
-          id: '789',
-          name: 'HHHHH',
-          note: []
-        },
-        {
-          id: '987',
-          name: '안녕하세요',
-          note: []
+          id: 2222,
+          name: "HELLO adsfasdfasd"
         }
       ]
     }
   },
   mounted () {
-    var grid = new Muuri('.grid-sections', {
+    var grid = new Muuri(`.items-${this.sectionId}`, {
       // Item elements
       items: '*',
 
@@ -99,9 +82,9 @@ export default {
       dragStartPredicate: {
         distance: 0,
         delay: 0,
-        handle: '.drag'
+        handle: null
       },
-      dragAxis: 'y',
+      dragAxis: null,
       dragSort: true,
       dragSortHeuristics: {
         sortInterval: 100,
@@ -146,13 +129,13 @@ export default {
 </script>
 
 <style lang="scss">
-.grid-sections {
+.items {
   position: relative;
   & > .item {
-    display: block;
+    display: inline-block;
     position: absolute;
-    width: 100%;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     margin-bottom: 1rem;
     z-index: 1;
   }
