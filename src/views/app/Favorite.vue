@@ -1,16 +1,18 @@
 <template>
   <div class="grid-sections p-2">
     <template v-for="section in sections">
-      <div class="item"  :key="section.id">
+      <div class="item bg-white" :key="section.id">
         <div class="item-content hover:border-black">
         <!-- Safe zone, enter your custom markup -->
-          <div class="drag cursor-pointer">DRAG</div>
-          <div class="text-2xl cursor-pointer border-b">
-            <input type="text" v-model="section.name">
+          <div class="flex border-b mb-4 items-center">
+            <div class="drag cursor-move mr-2">=</div>
+            <div class="flex-1 text-2xl cursor-pointer">
+              <input type="text" v-model="section.name" class="font-bold">
+            </div>
           </div>
-          <div>
+          <div v-if="showInnerSection">
             <!-- ITEMS -->
-            <inner-section :section-id="section.id" />
+            <inner-section :section-id="section.id" @update-layout="updateLayout" />
           </div>
         <!-- Safe zone ends -->
         </div>
@@ -30,6 +32,8 @@ export default {
   },
   data () {
     return {
+      grid: null,
+      showInnerSection: true,
       sections: [
         {
           id: '1234',
@@ -55,7 +59,7 @@ export default {
     }
   },
   mounted () {
-    var grid = new Muuri('.grid-sections', {
+    this.grid = new Muuri('.grid-sections', {
       // Item elements
       items: '*',
 
@@ -141,6 +145,11 @@ export default {
       itemReleasingClass: 'muuri-item-releasing',
       itemPlaceholderClass: 'muuri-item-placeholder'
     })
+  },
+  methods: {
+    updateLayout () {
+      this.grid.refreshItems().layout()
+    }
   }
 }
 </script>
@@ -152,7 +161,7 @@ export default {
     display: block;
     position: absolute;
     width: 100%;
-    height: 300px;
+    // min-height: 300px;
     margin-bottom: 1rem;
     z-index: 1;
   }

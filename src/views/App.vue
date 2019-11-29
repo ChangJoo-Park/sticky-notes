@@ -26,7 +26,7 @@
       </ul>
     </aside>
     <div class="flex-1 overflow-hidden">
-      <div class="flex p-4 border-b w-full align-middle items-center">
+      <div class="flex px-4 py-2 w-full align-middle items-center">
         <button
           class="text-2xl font-bold"
           @click="sidebarOpen = !sidebarOpen"

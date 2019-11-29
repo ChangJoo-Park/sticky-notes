@@ -1,11 +1,30 @@
 <template>
   <div class="items p-2" :class="`items-${sectionId}`">
     <template v-for="item in items">
-      <div class="item border"  :key="item.id">
+      <div class="item border rounded mx-2 bg-white"  :key="item.id">
         <div class="item-content">
         <!-- Safe zone, enter your custom markup -->
-          <div class="cursor-pointer ">
-            {{item.name}} - {{ sectionId }}
+          <div class="h-full flex flex-col">
+            <div class="drag-item h-4 cursor-move"></div>
+            <div class="flex-1">
+              <div v-for="(block, index) in item.blocks" :key="index" class="focus:bg-gray-100 active:bg-gray-100 px-2">
+                <template v-if="block.type === 'heading'">
+                  <textarea v-model="block.value" rows=1 class="font-bold text-xl resize-none w-full" />
+                </template>
+                <template v-if="block.type === 'note'">
+                  <div
+                    contenteditable="true"
+                    class="hover:bg-gray-100"
+                  >
+                    {{block.value}}
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="p-2 drag-item h-8 cursor-move flex">
+              <button @click="addBlock(item.id)"> + </button>
+              <button> - </button>
+            </div>
           </div>
         <!-- Safe zone ends -->
         </div>
@@ -25,20 +44,40 @@ export default {
   },
   data () {
     return {
+      grid: null,
       items: [
         {
           id: 111,
+          blocks: [
+            {
+              type: 'heading',
+              value: 'HELLO WORLD'
+            },
+            {
+              type: 'note',
+              value: 'hello world'
+            }
+          ],
           name: "HELLO2222 WORLD"
         },
         {
           id: 2222,
-          name: "HELLO adsfasdfasd"
+          blocks: [
+            {
+              type: 'heading',
+              value: 'HELLO WORLD'
+            },
+            {
+              type: 'note',
+              value: 'hello world'
+            }
+          ],
         }
       ]
     }
   },
   mounted () {
-    var grid = new Muuri(`.items-${this.sectionId}`, {
+    this.grid = new Muuri(`.items-${this.sectionId}`, {
       // Item elements
       items: '*',
 
@@ -82,7 +121,7 @@ export default {
       dragStartPredicate: {
         distance: 0,
         delay: 0,
-        handle: null
+        handle: '.drag-item'
       },
       dragAxis: null,
       dragSort: true,
@@ -124,6 +163,17 @@ export default {
       itemReleasingClass: 'muuri-item-releasing',
       itemPlaceholderClass: 'muuri-item-placeholder'
     })
+  },
+  methods: {
+    addBlock (id) {
+      const itemIndex = this.items.findIndex(item => item.id === id)
+      this.items[itemIndex].blocks.push({
+        type: 'note',
+        value: 'hello world'
+      })
+      this.grid.refreshItems().layout();
+      this.$emit('update-layout')
+    }
   }
 }
 </script>
@@ -134,8 +184,7 @@ export default {
   & > .item {
     display: inline-block;
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 250px;
     margin-bottom: 1rem;
     z-index: 1;
   }

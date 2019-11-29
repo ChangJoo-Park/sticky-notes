@@ -20,4 +20,8 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
+* {
+  box-sizing: border-box;
+}
 </style>
