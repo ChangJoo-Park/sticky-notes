@@ -1,10 +1,9 @@
 <template>
   <div class="flex flex-col mb-4 items-stretch">
-    <div class="flex border-b mb-4">
-      <div class="drag cursor-move mr-2">=</div>
-      <div class="flex-1 text-2xl cursor-pointer">
-        <input type="text" v-model="section.name" class="font-bold">
-      </div>
+    <div class="flex border-b mb-4 items-center">
+      <div class="drag cursor-move mr-4">::</div>
+      <div class="text-2xl cursor-pointer mr-4" contenteditable="true">{{section.name}}</div>
+      <div><button>New Item</button></div>
     </div>
     <draggable
       v-model="items"
@@ -24,13 +23,13 @@
           <textarea rows="1" class="resize-none w-full font-bold text-xl p-2 hover:bg-gray-300 focus:bg-gray-300 outline-none hover:shadow-outline" placeholder="Heading" />
           <input type="text" class="w-full px-2 py-1 hover:bg-gray-300 focus:bg-gray-300 mb-1 outline-none focus:rounded hover:rounded focus:shadow-outline hover:shadow-outline" placeholder="Write Here...">
         </div>
-        <div class="drag p-2 cursor-move flex">
-          <div class="flex-1">
-            <button>+</button>&nbsp;
-            <button>-</button>&nbsp;
+        <div class="drag tools px-2 cursor-move flex invisible">
+          <div class="flex-1 flex items-center">
+            <button class="font-bold mr-2">H</button>
+            <button><img src="@/assets/icon/edit-3.svg" width="16px" alt=""></button>
           </div>
           <div class="">
-            <button>::</button>
+            <button><img src="@/assets/icon/more-horizontal.svg" width="16px" alt=""></button>&nbsp;
           </div>
         </div>
       </div>
@@ -61,5 +60,8 @@ export default {
 <style>
 .item {
   min-height: 100px;
+}
+.item:hover .tools {
+  visibility: visible;
 }
 </style>
