@@ -12,17 +12,16 @@
         <router-link
           class="cursor-pointer"
           tag="li"
-          :to="{ name: 'app-board', params: { id: '1234' } }"
+          v-for="board in boards" :key="board.id"
+          :to="{ name: 'app-board', params: { id: board.id } }"
         >
-          Board
+          {{ board.name }}
         </router-link>
-        <router-link
-          class="cursor-pointer"
-          tag="li"
-          :to="{ name: 'app-board', params: { id: '4321' } }"
-        >
-          Board 2
-        </router-link>
+        <li>
+          <form @submit.prevent="submit">
+            <input type="text" v-model="newBoard">
+          </form>
+        </li>
       </ul>
     </aside>
     <div class="flex-1 overflow-hidden">
@@ -49,10 +48,27 @@
 </template>
 
 <script>
+import { db } from '@/db'
+
 export default {
   data () {
     return {
-      sidebarOpen: true
+      sidebarOpen: true,
+      boards: [],
+      newBoard: ''
+    }
+  },
+  firestore: {
+    boards: db.collection('boards')
+  },
+  methods: {
+    submit() {
+      db.collection('boards').add({
+        name: 'Fuengirola',
+        slogan: 'Un sol de ciudad',
+        // userRef: db.doc('users/' + firebase.auth().currentUser.uid)
+      })
+      this.newBoard = ''
     }
   }
 }

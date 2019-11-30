@@ -19,11 +19,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/grid',
-    name: 'grid',
-    component: () => import(/* webpackChunkName: "grid" */ '../views/Grid.vue')
-  },
-  {
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
@@ -49,8 +44,8 @@ const routes = [
       }
     ]
   },
-  { 
-    path:'*', 
+  {
+    path:'*',
     component: () => import(/* webpackChunkName: "not-found" */ '../views/NotFound.vue')
   }
 ]
