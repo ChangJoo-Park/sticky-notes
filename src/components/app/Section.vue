@@ -22,11 +22,11 @@
       <div
         v-for="(item, itemIndex) in section.items"
         :key="itemIndex"
-        class="item bg-white rounded p-2 mr-4 mb-4 inline-block w-full lg:w-64 sm:w-full shadow mb-1"
+        class="item bg-white rounded p-2 mr-4 mb-4 inline-block w-full lg:w-64 sm:w-full shadow"
       >
         <div class="drag h-4 cursor-move"></div>
         <!-- Blocks -->
-        <div class="p-2">
+        <div class="p-2 mb-1">
           <template v-for="(block, blockIndex) in item.blocks">
             <textarea
               v-if="block.type === 'heading'"
