@@ -33,7 +33,7 @@
           =
         </button>
         <div class="flex-1 px-4 text-center text-2xl font-bold">
-          TopNav
+          {{ boardTitle }}
         </div>
         <div>
           Dropdown
@@ -55,11 +55,35 @@ export default {
     return {
       sidebarOpen: true,
       boards: [],
-      newBoard: ''
+      newBoard: '',
+      boardTitle: ''
     }
   },
   firestore: {
     boards: db.collection('boards')
+  },
+  watch: {
+    boards (currBoard) {
+      if (this.$route.params.id && currBoard.length > 0 && (this.boardTitle == '' || this.boardTitle == 'Favorite')) {
+          const index = this.boards.findIndex(b => b.id === this.$route.params.id)
+          this.boardTitle = this.boards[index].name
+      }
+    },
+    '$route.params.id': {
+      handler (current) {
+        if (!current) {
+          this.boardTitle = 'Favorite'
+        } else {
+          if (this.boardTitle.length > 0) {
+            const index = this.boards.findIndex(b => b.id === current)
+            this.boardTitle = this.boards[index].name
+          } else {
+            this.boardTitle = ''
+          }
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     submit() {
