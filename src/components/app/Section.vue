@@ -5,7 +5,7 @@
       <div
         class="text-2xl cursor-pointer mr-4"
         contenteditable="true"
-      >{{section.name}} / {{section.id}}</div>
+      >{{section.name}} / {{section.id}} - {{ section.order }}</div>
       <div>
         <button @click="addItem(section.id)">New Item</button>
       </div>
