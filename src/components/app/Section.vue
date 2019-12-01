@@ -22,7 +22,7 @@
       <div
         v-for="(item, itemIndex) in section.items"
         :key="itemIndex"
-        class="item bg-white rounded p-2 mr-4 mb-4 inline-block w-full lg:w-64 sm:w-full shadow"
+        class="item bg-white rounded p-2 mr-4 mb-4 inline-block w-full lg:w-64 sm:w-full shadow mb-1"
       >
         <div class="drag h-4 cursor-move"></div>
         <!-- Blocks -->
